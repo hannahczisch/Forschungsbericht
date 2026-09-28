@@ -23,8 +23,6 @@ power_apriori
 ceiling(power_apriori$n)      
 2 * ceiling(power_apriori$n)   
 
-plot(power_apriori)
-
 #Gesamtstichprobe: 164
 
 
