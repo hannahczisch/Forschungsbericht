@@ -10,7 +10,7 @@ library(car)
 library(effectsize)
 
 
-# 1. a priori Poweranalyse
+#1.a priori Poweranalyse
 
 
 power_apriori <- pwr.t.test(d = 0.39,          
@@ -28,7 +28,7 @@ plot(power_apriori)
 #Gesamtstichprobe: 164
 
 
-# 2.Ausschlusskriterien
+#2.Ausschlusskriterien
 nrow(personen)
 
 unvollstaendig <- personen$Aufgabe_vollstaendig == 0
@@ -46,7 +46,7 @@ daten$Gruppe <- factor(daten$Gruppe, levels = c("hetero", "queer"))
 nrow(daten)
 table(daten$Gruppe)
 
-# 3.deskriptive Daten der Stichprobe
+#3.deskriptive Daten der Stichprobe
 
 mean(daten$Alter)
 sd(daten$Alter)
@@ -56,7 +56,7 @@ tapply(daten$Alter, daten$Gruppe, mean)
 tapply(daten$Alter, daten$Gruppe, sd)
 
 
-# 4.Reliabilität ASI und invertieren 
+#4.Reliabilität ASI und invertieren 
 
 itemsASI <- daten[, c("ASI_01", "ASI_02", "ASI_03", "ASI_04", "ASI_05",
                       "ASI_06", "ASI_07", "ASI_08", "ASI_09", "ASI_10",
@@ -80,7 +80,7 @@ psych::alpha(itemsASI[, ItemsHostilerSexismus])
 psych::alpha(itemsASI[, ItemsBenevolenterSexismus])
 
 
-# 5. Deskriptive Statistik (M, SD, Median pro Gruppe)
+#5.Deskriptive Statistik (M, SD, Median pro Gruppe)
 variablen <- c("ASI_Gesamt", "RT_BS_korrekt_M")
 describeBy(daten[, variablen], group = daten$Gruppe, mat = TRUE, digits = 2)
 
@@ -89,7 +89,7 @@ t.test(ASI_Gesamt ~ Gruppe, data = daten, var.equal = TRUE)
 cohen.d(daten[, c("ASI_Gesamt", "Gruppe")], group = "Gruppe")
 
 
-# 6. Hypothese
+#6.Hypothese
 
 daten$logRT <- log(daten$RT_BS_korrekt_M)
 leveneTest(logRT ~ Gruppe, data = daten)
@@ -102,10 +102,10 @@ cohen.d(daten[, c("logRT", "Gruppe")], group = "Gruppe")
 
 (1857.53 - 2004.70) / 2004.70 * 100
 
-# 7. Kontrolle des ASI
+#7.Kontrolle des ASI
 daten$ASI_c <- daten$ASI_Gesamt - mean(daten$ASI_Gesamt)
 
-# Voraussetzung: Interaktion Gruppe x ASI soll nicht signifikant sein
+#Voraussetzung: Interaktion Gruppe x ASI soll nicht signifikant sein
 anova(lm(logRT ~ Gruppe * ASI_c, data = daten))
 
 ancova <- lm(logRT ~ Gruppe + ASI_c, data = daten)
@@ -120,7 +120,7 @@ eta_squared(Anova(ancova, type = 3), partial = TRUE, alternative = "two.sided")
 
 (exp(-0.05) - 1) * 100 
 
-#8. Plot 
+#8.Plot 
 
 # install.packages("ggplot2")
 library(ggplot2)
