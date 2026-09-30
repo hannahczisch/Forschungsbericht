@@ -139,7 +139,6 @@ Abbildung
 
 ggsave("~/Desktop/abbildung1.png", Abbildung, width = 6, height = 4.5, dpi = 300)
 
-
 citation()
 citation("pwr")
 citation("psych")
