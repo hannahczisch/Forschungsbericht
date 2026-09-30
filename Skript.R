@@ -82,7 +82,7 @@ psych::alpha(itemsASI[, ItemsBenevolenterSexismus])
 variablen <- c("ASI_Gesamt", "RT_BS_korrekt_M")
 describeBy(daten[, variablen], group = daten$Gruppe, mat = TRUE, digits = 2)
 
-# Unterscheiden sich die Gruppen im ASI? (erklärt, warum der Effekt in der ANCOVA kleiner wird)
+# Unterscheiden sich die Gruppen im ASI
 t.test(ASI_Gesamt ~ Gruppe, data = daten, var.equal = TRUE)
 cohen.d(daten[, c("ASI_Gesamt", "Gruppe")], group = "Gruppe")
 
@@ -103,7 +103,7 @@ cohen.d(daten[, c("logRT", "Gruppe")], group = "Gruppe")
 #7.Kontrolle des ASI
 daten$ASI_c <- daten$ASI_Gesamt - mean(daten$ASI_Gesamt)
 
-#Voraussetzung: Interaktion Gruppe x ASI soll nicht signifikant sein
+#Voraussetzung
 anova(lm(logRT ~ Gruppe * ASI_c, data = daten))
 
 ancova <- lm(logRT ~ Gruppe + ASI_c, data = daten)
